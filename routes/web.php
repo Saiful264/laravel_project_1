@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Backend\BackendContriller;
+use App\Http\Controllers\Backend\BannerController;
+use App\Http\Controllers\Frontend\FrontendControll;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -16,10 +18,17 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FrontendControll::class, 'index'])->name('frontend.home');
+
+
 
 Auth::routes();
 
-Route::get('/dashboard', [BackendContriller::class, 'index'])->name('backend.home');
+Route::name('backend.')->group(function(){
+
+    Route::get('/dashboard', [BackendContriller::class, 'index'])->name('home');
+
+    Route::resource('/banner', BannerController::class)->except(['show']);
+
+});
+

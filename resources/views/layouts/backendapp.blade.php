@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="icon" href="{{ asset('backend/images/favicon.ico') }}" type="image/ico" />
+    <link rel="icon" href="{{ asset('backend/images/favicon.ico') }}" type="image/icon" />
 
     <title>@yield('title') {{ config('app.name', 'Stowaa') }}</title>
 
@@ -32,7 +32,9 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><img src="{{ asset('') }}" alt=""></a>
+                        <a href="{{ route('frontend.home') }}" class="site_title" target="_blank"><img
+                                src="{{ asset('frontend/images/logo/logo_1x.png') }}"
+                                alt="{{ config('app.name') }}"></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -40,11 +42,12 @@
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="{{ asset('backend/images/img.jpg') }}" alt="..." class="img-circle profile_img">
+                            <img src="{{ asset('backend/images/img.jpg') }}" alt="..."
+                                class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
                             <span>Welcome,</span>
-                            <h2>John Doe</h2>
+                            <h2>{{ Auth::user()->name }}</h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -63,6 +66,13 @@
                                         <li><a href="index2.html">Dashboard2</a></li>
                                         <li><a href="index3.html">Dashboard3</a></li>
                                     </ul>
+                                </li>
+                                <li><a><i class="fa fa-edit"></i> Banner <span class="fa fa-chevron-down"></span>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ route('backend.banner.create') }}">Add Banner</a></li>
+                                            <li><a href="{{ route('backend.banner.index') }}">All Banner</a></li>
+                                        </ul>
+                                    </a>
                                 </li>
                                 <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                                 </li>
@@ -102,7 +112,8 @@
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
                                     id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ asset('backend/images/img.jpg') }}" alt="">John Doe
+                                    <img src="{{ asset('backend/images/img.jpg') }}"
+                                        alt="">{{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right"
                                     aria-labelledby="navbarDropdown">
@@ -149,51 +160,7 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img
-                                                    src="{{ asset('backend/images/img.jpg') }}"
-                                                    alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were
-                                                where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img
-                                                    src="{{ asset('backend/images/img.jpg') }}"
-                                                    alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were
-                                                where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img
-                                                    src="{{ asset('backend/images/img.jpg') }}"
-                                                    alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were
-                                                where...
-                                            </span>
-                                        </a>
-                                    </li>
+
                                     <li class="nav-item">
                                         <div class="text-center">
                                             <a class="dropdown-item">
