@@ -21,7 +21,7 @@
                         </div>
                         <div class="x_content">
                             <br />
-                            <form action="{{ route('backend.banner.store') }}" method="POST" enctype="multipart/from-data"
+                            <form action="{{ route('backend.banner.store') }}" method="POST" enctype="multipart/form-data"
                                 class="form-horizontal form-label-left">
                                 @csrf
 

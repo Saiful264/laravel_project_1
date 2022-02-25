@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class BannerController extends Controller
 {
@@ -15,7 +16,8 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //
+        $datas = Banner::where('status', 1)->get();
+        return view('backend.banner.index', compact('datas'));
     }
 
     /**
@@ -36,7 +38,27 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $this-> validate($request, [
+            "title" => "required",
+            "photo" => "required|mimes:png,jpg,gif,jpeg,webp|max:1024",
+        ]);
+
+        $photo = $request->file('photo');
+
+        $photo_name = Str::slug($request->title).'_'.time().'.'. $photo->getClientOriginalExtension();
+
+        $uploads_photo = $photo->move(public_path('storage/banner'),$photo_name);
+
+        if($uploads_photo){
+            $insert = new Banner();
+
+            $insert->title = $request->title;
+            $insert->description = $request->description;
+            $insert->photo = $photo_name;
+            $insert->save();
+            return redirect(route('backend.banner.index'))->with('success', 'Banner Insert Success!');
+        }
+
     }
 
 

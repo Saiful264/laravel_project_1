@@ -210,6 +210,7 @@
     <script src="{{ asset('backend/js/bootstrap-progressbar.min.js') }}"></script>
     <!-- Custom Theme Scripts -->
     <script src="{{ asset('backend/js/custom.min.js') }}"></script>
+    @yield('backend_js')
 
 </body>
 
