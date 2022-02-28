@@ -50,10 +50,13 @@
                                                 <td><img width="100" src="{{ asset('storage/banner/' . $data->photo) }}"
                                                         alt=""></td>
                                                 <td>{{ $data->title }}</td>
-                                                <td>{{ $data->description }}</td>
-                                                <td>{{ $data->status }}</td>
+                                                <td>{{ Str::limit($data->description, 20, '...') }}</td>
+                                                <td>{{ $data->status == 1 ? 'Active' : 'Dactive' }}</td>
                                                 <td class=" last">
-                                                    <a href="#">View</a>
+                                                    <a href="{{ route('backend.banner.edit', $data->id) }}"
+                                                        class="btn btn-primary btn-sm">View/Edit</a>
+                                                    <a href="{{ route('backend.banner.destroy', $data->id) }}"
+                                                        class="btn btn-primary btn-sm">Delete</a>
                                                 </td>
                                             </tr>
                                         @endforeach

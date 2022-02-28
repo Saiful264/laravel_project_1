@@ -6,6 +6,7 @@ use App\Models\Banner;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {
@@ -16,7 +17,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $datas = Banner::where('status', 1)->get();
+        $datas = Banner::all();
         return view('backend.banner.index', compact('datas'));
     }
 
@@ -71,7 +72,7 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
-        //
+        return view('backend.banner.edit', compact('banner'));
     }
 
     /**
@@ -83,7 +84,37 @@ class BannerController extends Controller
      */
     public function update(Request $request, Banner $banner)
     {
-        //
+        $this-> validate($request, [
+            "title" => "required",
+            "photo" => "mimes:png,jpg,gif,jpeg,webp|max:1024",
+        ]);
+
+        $photo = $request->file('photo');
+
+        if(!empty($photo)){
+
+
+            if(public_path('stroage/banner/'.$banner->photo)){
+                $photo_name = Str::slug($request->title).'_'.time().'.'. $photo->getClientOriginalExtension();
+
+                $uploads_photo = $photo->move(public_path('storage/banner/'),$photo_name);
+                unlink(public_path('storage/banner/'.$banner->photo));
+                return "ok";
+            }
+
+
+
+        }else{
+            $photo_name = $banner->photo;
+        }
+
+
+            // $banner->title = $request->title;
+            // $banner->description = $request->description;
+            // $banner->photo = $photo_name;
+            // $banner->save();
+            // return back()->with('success', 'Banner Insert Success!');
+
     }
 
     /**
