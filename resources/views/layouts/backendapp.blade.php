@@ -14,7 +14,7 @@
 
     <title>@yield('title') {{ config('app.name', 'Stowaa') }}</title>
 
-
+    @yield('backend.css')
     <!-- Bootstrap -->
     <link href="{{ asset('backend/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->

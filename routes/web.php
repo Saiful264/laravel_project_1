@@ -29,6 +29,9 @@ Route::name('backend.')->group(function(){
     Route::get('/dashboard', [BackendContriller::class, 'index'])->name('home');
 
     Route::resource('/banner', BannerController::class)->except(['show']);
+    Route::get('/banner/status/{banner}', [BannerController::class, 'status'])->name('banner.status');
+    Route::get('/banner/restore/{id}', [BannerController::class, 'restore'])->name('banner.restore');
+    Route::get('/banner/hard/delete/{id}', [BannerController::class, 'harddelete'])->name('banner.harddelete');
 
 });
 

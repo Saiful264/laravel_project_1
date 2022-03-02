@@ -65,5 +65,25 @@
 
             </div>
         </div>
+        @if (session('success'))
+            <div class="toast" style="position: absolute; top: 0; right: 0;" data-delay="10000">
+                <div class="toast-header">
+                    <strong class="mr-auto">{{ config('app.name') }}</strong>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
     </section>
+@endsection
+
+
+@section('backend_js')
+    <script>
+        $('.toast').toast('show');
+    </script>
 @endsection
