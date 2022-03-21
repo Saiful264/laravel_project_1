@@ -17,7 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('backend.product.cetagory.index');
+        $categories = Category::with('childs')->where('parent_id', '=', null)->OrderBy('created_at', "DESC")->get();
+        return view('backend.product.cetagory.index', compact('categories'));
     }
 
     /**
@@ -48,12 +49,18 @@ class CategoryController extends Controller
 
         if(!empty($photo)){
             $img_name = Str::slug($request->name).time().'.'. $photo->getClientOriginalExtension();
-
-            Image::make($photo)->resize(300, 400)->save(public_path('storage/category/'.$img_name));
+            Image::make($photo)->crop(200, 256)->save(public_path('storage/category/'.$img_name));
         }
 
-        $insert = new category();
-        //31:00 mon
+       $insert = new Category();
+        $insert->name = $request->name;
+        $insert->parent_id = $request->parent;
+        $insert->slug = Str::slug($request->name);
+        $insert->description = $request->description;
+        $insert->icon = $request->icon;
+        $insert->image = $img_name;
+        $insert->save();
+        return back()->with('success', "Product Category Insert Successfull!");
     }
 
     /**

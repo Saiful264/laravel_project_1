@@ -34,7 +34,9 @@
                                     <label for="parent">Parent Category:</label>
                                     <select name="parent" id="parent" class="form-control">
                                         <option disabled selected>Select Parent Category</option>
-                                        <option value="1">apple</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -93,13 +95,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
+                                    @foreach ($categories as $category)
+                                        <tr>
+                                            <th scope="row">{{ $category->id }}</th>
+                                            <td>{{ $category->name }}
+                                            </td>
+                                            <td>
+                                                <img width="50" src="{{ asset('storage/category/' . $category->image) }}"
+                                                    alt="{{ $category->name }}">
+                                            </td>
+                                            <td>{{ $category->slug }}</td>
+                                            <td>
+                                                <a href="#" class="btn btn-primary">View</a>
+                                            </td>
+                                        </tr>
+                                        @if ($category->childs)
+                                            @foreach ($category->childs as $child)
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td>{{ "-- $child->name" }}
+                                                    </td>
+                                                    <td>
+                                                        <img width="50"
+                                                            src="{{ asset('storage/category/' . $child->image) }}"
+                                                            alt="{{ $child->name }}">
+                                                    </td>
+                                                    <td>{{ $child->slug }}</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary">View</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                    @endforeach
                                 </tbody>
                             </table>
 
@@ -109,4 +137,24 @@
             </div>
         </div>
     </section>
+
+    @if (session('success'))
+        <div class="toast" style="position: absolute; top: 0; right: 0;" data-delay="10000">
+            <div class="toast-header">
+                <strong class="mr-auto">{{ config('app.name') }}</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                {{ session('success') }}
+            </div>
+        </div>
+    @endif
+@endsection
+
+@section('backend_js')
+    <script>
+        $('.toast').toast('show');
+    </script>
 @endsection

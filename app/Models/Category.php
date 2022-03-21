@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
@@ -15,4 +16,9 @@ class Category extends Model
      * @var array<int, string>
      */
     protected $fillable = ['name','parent','description','icon','image'];
+
+    public function childs()
+    {
+        return $this->hasMany(Category::class, "parent_id", 'id');
+    }
 }

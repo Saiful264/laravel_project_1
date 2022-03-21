@@ -13,20 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('sizes', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('slug');
-            $table->integer('parent_id')->nullable();
-            $table->text('description')->nullable();
-            $table->string('icon')->nullable();
-            $table->string('image')->nullable();
+            $table->string('name');
             $table->integer('status')->default(1);
-            $table->softDeletes();
             $table->timestamps();
-
         });
     }
+
+    // 47:04 min
 
     /**
      * Reverse the migrations.
@@ -35,8 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('sizes');
     }
 };
-
-
