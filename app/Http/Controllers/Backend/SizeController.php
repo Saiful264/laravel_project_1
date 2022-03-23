@@ -15,18 +15,10 @@ class SizeController extends Controller
      */
     public function index()
     {
-        //
+        $sizes = Size::all();
+        return view('backend.product.size.index', compact('sizes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,18 +28,15 @@ class SizeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this-> validate($request,[
+            "name" => "required|unique:sizes,name"
+        ]);
+        $data = new Size();
+        $data->name =$request->name;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Size  $size
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Size $size)
-    {
-        //
+        $data->save();
+        return back()->with('success', "Size Added!");
+
     }
 
     /**

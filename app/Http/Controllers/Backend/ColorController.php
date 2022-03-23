@@ -15,18 +15,11 @@ class ColorController extends Controller
      */
     public function index()
     {
-        //
+        $colors = Color::all();
+        return view('backend.product.color.index', compact('colors'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -36,7 +29,14 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            "name" => "required|unique:sizes,name"
+        ]);
+        $data = new Color();
+        $data->name = $request->name;
+
+        $data->save();
+        return back()->with("success", "Color Added!");
     }
 
     /**

@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('colors', function (Blueprint $table) {
+        Schema::create('product_galleries', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('status')->default(1);
+            $table->foreignId('product_id')->constrained();
+            $table->string('photo');
             $table->timestamps();
         });
     }
+
+
 
     /**
      * Reverse the migrations.
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colors');
+        Schema::dropIfExists('product_galleries');
     }
 };

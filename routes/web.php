@@ -3,6 +3,8 @@
 use App\Http\Controllers\Backend\BackendContriller;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ColorController;
+use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Frontend\FrontendControll;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,8 +35,12 @@ Route::name('backend.')->group(function(){
     Route::get('/banner/status/{banner}', [BannerController::class, 'status'])->name('banner.status');
     Route::get('/banner/restore/{id}', [BannerController::class, 'restore'])->name('banner.restore');
     Route::get('/banner/hard/delete/{id}', [BannerController::class, 'harddelete'])->name('banner.harddelete');
+
     //product category routes
     Route::resource('/category', CategoryController::class);
+    Route::resource('/size', SizeController::class)->except(['show', 'create']);
+    Route::resource('/color', ColorController::class)->except(['show', 'create']);
+
 
 });
 
