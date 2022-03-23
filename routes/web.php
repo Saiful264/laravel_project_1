@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\BackendContriller;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ColorController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Frontend\FrontendControll;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +41,7 @@ Route::name('backend.')->group(function(){
     Route::resource('/category', CategoryController::class);
     Route::resource('/size', SizeController::class)->except(['show', 'create']);
     Route::resource('/color', ColorController::class)->except(['show', 'create']);
+    Route::resource('/product', ProductController::class);
 
 
 });
