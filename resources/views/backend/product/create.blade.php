@@ -19,40 +19,89 @@
                         </div>
                         <div class="x_content">
                             <br>
-                            <form class="form-label-left input_mask" action="{{ route('backend.category.store') }}"
+                            <form class="form-label-left input_mask" action="{{ route('backend.product.store') }}"
                                 method="POST" enctype="multipart/form-data">
                                 @csrf
 
-                                <div class="col-md-12  form-group">
-                                    <label for="name">Producte Name:</label>
+                                <div class="col-md-6  form-group">
+                                    <label>Product Name:</label>
                                     <input type="text" class="form-control" name="name" id="name"
-                                        placeholder="Category Name">
+                                        placeholder="Producte Name" value="{{ old('name') }}">
                                 </div>
 
 
-                                <div class="col-md-12  form-group">
-                                    <label for="parent">Parent Category:</label>
-                                    <select name="parent" id="parent" class="form-control">
-                                        <option disabled selected>Select Parent Category</option>
+                                <div class="col-md-6  form-group">
+                                    <label>Photo</label>
+                                    <input type="file" class="form-control" name="photo">
+                                </div>
+
+                                <div class="col-md-6  form-group">
+                                    <label>Product Price:</label>
+                                    <input type="text" class="form-control" name="price" placeholder="Producte Price"
+                                        value="{{ old('price') }}">
+                                </div>
+
+                                <div class="col-md-6  form-group">
+                                    <label>Sale Price:</label>
+                                    <input type="text" class="form-control" name="sale_price" placeholder="Producte Price"
+                                        value="{{ old('price') }}">
+                                </div>
+
+                                <div class="col-md-6  form-group">
+                                    <label>Quantity</label>
+                                    <input type="text" class="form-control" name="quantity"
+                                        placeholder="Producte Quantity" value="{{ old('quantity') }}">
+                                </div>
+
+                                <div class="col-md-6  form-group">
+                                    <label>Category</label>
+                                    <select class="select-multiple form-control" name="categories[]" multiple="multiple">
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6  form-group">
+                                    <label>Size:</label>
+                                    <select class="select-multiple form-control" name="size[]" multiple="multiple">
+                                        @foreach ($sizes as $size)
+                                            <option value="{{ $size->id }}">{{ $size->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6  form-group">
+                                    <label>Color</label>
+                                    <select class="select-multiple form-control" name="color[]" multiple="multiple">
+                                        @foreach ($colors as $color)
+                                            <option value="{{ $color->id }}">{{ $color->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
                                 <div class="col-md-12  form-group">
-                                    <label for="description">Description:</label>
-                                    <textarea name="description" id="description" class="form-control summernote" rows="4"></textarea>
+                                    <label>Short Description:</label>
+                                    <textarea name="short_description" class="form-control" rows="4">{{ old('short_description') }}</textarea>
                                 </div>
 
                                 <div class="col-md-12  form-group">
-                                    <label for="image">Category Image:</label>
-                                    <input type="file" name="image" class="form-control" id="image">
-                                    <p>Image size 200x226 px</p>
+                                    <label>Description:</label>
+                                    <textarea name="description" id="description" class="form-control summernote"
+                                        rows="4">{{ old('description') }}</textarea>
                                 </div>
 
                                 <div class="col-md-12  form-group">
-                                    <label for="">Category Menu Icon:</label>
-                                    <input type="text" name="icon" class="form-control" id="icon">
-                                    <p>Full Icon Class Name</p>
+                                    <label>Additional Info:</label>
+                                    <textarea name="additional_info" class="form-control summernote" rows="4">{{ old('additional_info') }}</textarea>
                                 </div>
+
+
+                                <div class="col-md-12  form-group mb-4">
+                                    <label>Product Gallery:</label>
+                                    <input type="file" class="form-control" name="gallery_photo[]" multiple>
+                                </div>
+
 
                                 <div class="ln_solid"></div>
                                 <div class="form-group row">
@@ -87,24 +136,30 @@
 
 @section('backend.css')
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
 @endsection
 
 @section('backend_js')
     <script src="//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
-        $('.toast').toast('show');
+        $(document).ready(function() {
+            $('.select-multiple').select2();
 
-        $('.summernote').summernote({
-            height: 150,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
+            $('.toast').toast('show');
+
+            $('.summernote').summernote({
+                height: 150,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
         });
     </script>
 @endsection
