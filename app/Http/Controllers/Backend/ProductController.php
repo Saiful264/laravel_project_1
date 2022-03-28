@@ -21,7 +21,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::select('id','tilte','price','sale_price','quantity','photo')->orderBy('created_at', "desc")->get();
+        return view('backend.product.index', compact('products'));
     }
 
     /**
@@ -49,15 +50,16 @@ class ProductController extends Controller
 
 
 
-        // $this->validate($request, [
-        //     "name" => 'required|unique:products,name,',
-        //     "price" => "numeric",
-        //     "sale_price" => "numeric",
-        //     "categories" => "required",
-        //     "size" => "required",
-        //     "color" => "required",
-        //     "photo" => "required|image|mimes:jpg,png,webp,jpeg|max:512",
-        // ]);
+        $this->validate($request, [
+            "name" => 'required|unique:products,name,',
+            "price" => "numeric",
+            "sale_price" => "numeric",
+            "categories" => "required",
+            "size" => "required",
+            "color" => "required",
+            "photo" => "required|image|mimes:jpg,png,webp,jpeg|max:512",
+            "gallery_photo" => "image|mines:jpg,png,webp,jpeg|max:512",
+        ]);
 
         $photo =$request->file('photo');
 
@@ -77,6 +79,11 @@ class ProductController extends Controller
                 $product->quantity = $request->quantity;
                 $product->photo = $photo_name;
                 $product->save();
+
+
+                $product->categories()->attach($request->categories);
+                $product->sizes()->attach($request->sizes);
+                $product->colors()->attach($request->colors);
             }
         }
 
@@ -98,7 +105,9 @@ class ProductController extends Controller
             }
         }
     }
-    }
+
+    return redirect(route('backend.product.index'))->with('success', "Product Insert Successfully Down!");
+}
 
 
     /**

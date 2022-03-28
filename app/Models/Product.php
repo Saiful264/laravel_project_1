@@ -11,6 +11,18 @@ class Product extends Model
     use HasFactory, SoftDeletes;
 
 
+    public function categories(){
+        return $this->belongsToMany(Category::class)->withTimestamps();
+    }
+
+     public function colors(){
+        return $this->belongsToMany(Color::class)->withTimestamps();
+    }
+
+     public function sizes(){
+        return $this->belongsToMany(Size::class)->withTimestamps();
+    }
+
     /**
      * The attributes that are mass assignable.
      *

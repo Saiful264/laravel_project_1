@@ -64,7 +64,7 @@
 
                                 <div class="col-md-6  form-group">
                                     <label>Size:</label>
-                                    <select class="select-multiple form-control" name="size[]" multiple="multiple">
+                                    <select class="select-multiple form-control" name="sizes[]" multiple="multiple">
                                         @foreach ($sizes as $size)
                                             <option value="{{ $size->id }}">{{ $size->name }}</option>
                                         @endforeach
@@ -73,7 +73,7 @@
 
                                 <div class="col-md-6  form-group">
                                     <label>Color</label>
-                                    <select class="select-multiple form-control" name="color[]" multiple="multiple">
+                                    <select class="select-multiple form-control" name="colors[]" multiple="multiple">
                                         @foreach ($colors as $color)
                                             <option value="{{ $color->id }}">{{ $color->name }}</option>
                                         @endforeach
