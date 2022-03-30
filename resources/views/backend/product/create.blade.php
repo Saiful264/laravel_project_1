@@ -27,30 +27,45 @@
                                     <label>Product Name:</label>
                                     <input type="text" class="form-control" name="name" id="name"
                                         placeholder="Producte Name" value="{{ old('name') }}">
+                                    @error('name')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
 
                                 <div class="col-md-6  form-group">
                                     <label>Photo</label>
                                     <input type="file" class="form-control" name="photo">
+                                    @error('photo')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6  form-group">
                                     <label>Product Price:</label>
                                     <input type="text" class="form-control" name="price" placeholder="Producte Price"
                                         value="{{ old('price') }}">
+                                    @error('price')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6  form-group">
                                     <label>Sale Price:</label>
                                     <input type="text" class="form-control" name="sale_price" placeholder="Producte Price"
                                         value="{{ old('price') }}">
+                                    @error('sale_price')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6  form-group">
                                     <label>Quantity</label>
                                     <input type="text" class="form-control" name="quantity"
                                         placeholder="Producte Quantity" value="{{ old('quantity') }}">
+                                    @error('quantity')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6  form-group">
@@ -60,6 +75,9 @@
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('categories')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6  form-group">
@@ -69,6 +87,9 @@
                                             <option value="{{ $size->id }}">{{ $size->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('sizes')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6  form-group">
@@ -78,28 +99,43 @@
                                             <option value="{{ $color->id }}">{{ $color->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('colors')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-12  form-group">
                                     <label>Short Description:</label>
                                     <textarea name="short_description" class="form-control" rows="4">{{ old('short_description') }}</textarea>
+                                    @error('short_description')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-12  form-group">
                                     <label>Description:</label>
                                     <textarea name="description" id="description" class="form-control summernote"
                                         rows="4">{{ old('description') }}</textarea>
+                                    @error('description')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-12  form-group">
                                     <label>Additional Info:</label>
                                     <textarea name="additional_info" class="form-control summernote" rows="4">{{ old('additional_info') }}</textarea>
+                                    @error('additional_info')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
 
                                 <div class="col-md-12  form-group mb-4">
                                     <label>Product Gallery:</label>
                                     <input type="file" class="form-control" name="gallery_photo[]" multiple>
+                                    @error('gallery_photo')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
 

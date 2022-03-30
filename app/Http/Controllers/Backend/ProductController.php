@@ -21,13 +21,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::select('id','tilte','price','sale_price','quantity','photo')->orderBy('created_at', "desc")->get();
+        $products = Product::with('sizes','colors','categories')->select('id','title','price','sale_price','quantity','photo','status')->orderBy('created_at', "desc")->get();
         return view('backend.product.index', compact('products'));
     }
 
     /**
      * Show the form for creating a new resource.
-     *
+
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -51,14 +51,15 @@ class ProductController extends Controller
 
 
         $this->validate($request, [
-            "name" => 'required|unique:products,name,',
-            "price" => "numeric",
-            "sale_price" => "numeric",
+            "name" => 'required|unique:products,title',
+            "price" => "required|numeric",
+            "quantity" => "required|numeric",
+            "sale_price" => "required|numeric",
             "categories" => "required",
-            "size" => "required",
-            "color" => "required",
+            "sizes" => "required",
+            "colors" => "required",
             "photo" => "required|image|mimes:jpg,png,webp,jpeg|max:512",
-            "gallery_photo" => "image|mines:jpg,png,webp,jpeg|max:512",
+            //"gallery_photo" => "image|mimes:jpg,png,webp,jpeg|max:512",
         ]);
 
         $photo =$request->file('photo');

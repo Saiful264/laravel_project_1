@@ -23,16 +23,51 @@
                                     <thead>
                                         <tr class="headings">
                                             <th class="column-title">Id </th>
-                                            <th class="column-title">image </th>
+                                            <th class="column-title">Image </th>
                                             <th class="column-title">Title </th>
-                                            <th class="column-title">description </th>
-                                            <th class="column-title">status </th>
-                                            <th class="column-title">action </th>
+                                            <th class="column-title">Category</th>
+                                            <th class="column-title">Size</th>
+                                            <th class="column-title">Color</th>
+                                            <th class="column-title">Price </th>
+                                            <th class="column-title">Sale_price </th>
+                                            <th class="column-title">Quantity </th>
+                                            <th class="column-title">Status </th>
+                                            <th class="column-title">Action </th>
                                         </tr>
                                     </thead>
-                                    'id','tilte','price','sale_price','quantity','photo' 51:00 min
-                                    <tbody>
 
+                                    <tbody>
+                                        @foreach ($products as $product)
+                                            <tr>
+                                                <td>{{ $product->id }}</td>
+                                                <td><img src="{{ asset('storage/products/' . $product->photo) }}"
+                                                        alt="{{ $product->title }}"" width=" 60">
+                                                </td>
+                                                <td>{{ $product->title }}</td>
+                                                <td>
+                                                    @foreach ($product->categories as $category)
+                                                        <span class="badge badge-primary">{{ $category->name }}</span>
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    @foreach ($product->sizes as $size)
+                                                        <span class="badge badge-primary">{{ $size->name }}</span>
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    @foreach ($product->colors as $color)
+                                                        <span class="badge badge-primary">{{ $color->name }}</span>
+                                                    @endforeach
+                                                </td>
+                                                <td>{{ $product->price }}</td>
+                                                <td>{{ $product->sale_price }}</td>
+                                                <td>{{ $product->quantity }}</td>
+                                                <td>{{ $product->status }}</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-primary">Viwe</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -64,7 +99,7 @@
 
     <script>
         $(document).ready(function() {
-            $(toast).toast());
+            $('.toast').toast('show'));
         });
     </script>
 @endsection
