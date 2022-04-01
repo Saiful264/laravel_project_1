@@ -76,8 +76,10 @@
                                 </li>
                                 <li><a><i class="fa fa-edit"></i>Product<span class="fa fa-chevron-down"></span>
                                         <ul class="nav child_menu">
+                                            @can('add product')
+                                                <li><a href="{{ route('backend.product.create') }}">Add Product</a></li>
+                                            @endcan
                                             <li><a href="{{ route('backend.product.index') }}">All Product</a></li>
-                                            <li><a href="{{ route('backend.product.create') }}">Add Product</a></li>
                                             <li><a href="{{ route('backend.category.index') }}">Categroy</a></li>
                                             <li><a href="{{ route('backend.size.index') }}">Size</a></li>
                                             <li><a href="{{ route('backend.color.index') }}">Color</a></li>

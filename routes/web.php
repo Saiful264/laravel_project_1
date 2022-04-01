@@ -43,6 +43,6 @@ Route::name('backend.')->group(function(){
     Route::resource('/color', ColorController::class)->except(['show', 'create']);
     Route::resource('/product', ProductController::class);
 
-
 });
 
+Route::get('/test', [HomeController::class, 'testroute']);

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 
 class HomeController extends Controller
 {
@@ -25,4 +29,15 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function testroute(){
+        //Role::create(['name'=> 'User']);
+        // Permission::create(['name' => 'delete products']);
+
+        // $permission = Permission::find(1);
+        $role = Role::find(3);
+        $user = User::find(2);
+        $user->assignRole($role);
+    }
 }
+
