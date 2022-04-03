@@ -7,6 +7,8 @@ use App\Http\Controllers\Backend\ColorController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Frontend\FrontendControll;
+use App\Http\Controllers\Frontend\FrontendUserController;
+use App\Http\Controllers\Frontend\FrontendUserRegisterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -22,14 +24,20 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [FrontendControll::class, 'index'])->name('frontend.home');
-
-
+Route::name('frontend.')->group(function(){
+    Route::get('/', [FrontendControll::class, 'index'])->name('home');
+    Route::get('/shop', [FrontendControll::class, 'shop'])->name('shop');
+    Route::get('/user/register', [FrontendUserRegisterController::class, 'register'])->name('user.register');
+    Route::post('/user/register', [FrontendUserRegisterController::class, 'store'])->name('user.register');
+    Route::get('/user/dashboard', [FrontendUserController::class, 'index'])->name('user.dashboard');
+});
 
 Auth::routes();
 
 Route::name('backend.')->group(function(){
 
+
+Route::group(['middleware' => ['role_or_permission:Super Admin']],function () {
     Route::get('/dashboard', [BackendContriller::class, 'index'])->name('home');
     // baner routes
     Route::resource('/banner', BannerController::class)->except(['show']);
@@ -39,9 +47,13 @@ Route::name('backend.')->group(function(){
 
     //product category routes
     Route::resource('/category', CategoryController::class);
+    //product
     Route::resource('/size', SizeController::class)->except(['show', 'create']);
     Route::resource('/color', ColorController::class)->except(['show', 'create']);
+
+
     Route::resource('/product', ProductController::class);
+    });
 
 });
 
