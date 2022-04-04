@@ -15,7 +15,7 @@ class FrontendControll extends Controller
     public function shop(){
         $products = Product::with('sizes','colors','categories')->
         select('id','title','price','sale_price','quantity','photo','status')->
-        orderBy('created_at', "desc")->get();
+        orderBy('created_at', "desc")->paginate(5);
         return view('frontend.shop', compact('products'));
     }
 }
