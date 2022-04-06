@@ -23,6 +23,10 @@ class Product extends Model
         return $this->belongsToMany(Size::class)->withTimestamps();
     }
 
+    public function galleries(){
+        return $this->hasMany(ProductGallery::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Frontend\FrontendControll;
 use App\Http\Controllers\Frontend\FrontendUserController;
 use App\Http\Controllers\Frontend\FrontendUserRegisterController;
+use App\Http\Controllers\Frontend\ShopController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -26,7 +27,10 @@ use App\Http\Controllers\HomeController;
 
 Route::name('frontend.')->group(function(){
     Route::get('/', [FrontendControll::class, 'index'])->name('home');
-    Route::get('/shop', [FrontendControll::class, 'shop'])->name('shop');
+    Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
+    Route::get('/shop/{slug}', [ShopController::class, 'show'])->name('shop.single');
+
+
     Route::get('/user/register', [FrontendUserRegisterController::class, 'register'])->name('user.register');
     Route::post('/user/register', [FrontendUserRegisterController::class, 'store'])->name('user.register');
     Route::get('/user/dashboard', [FrontendUserController::class, 'index'])->name('user.dashboard');
@@ -53,8 +57,12 @@ Route::group(['middleware' => ['role_or_permission:Super Admin']],function () {
 
 
     Route::resource('/product', ProductController::class);
-    });
+   });
 
 });
 
 Route::get('/test', [HomeController::class, 'testroute']);
+
+
+
+

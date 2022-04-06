@@ -95,7 +95,7 @@ class ProductController extends Controller
         foreach ($gallery_photos as $gallery_photo){
             $gallery_photo_name = Str::slug($request->name)."_".uniqid().".".$gallery_photo->getClientOriginalExtension();
 
-            $upload_photo = Image::make($gallery_photo)->crop(800, 609)->save(public_path('storage/product_gallery/'.$gallery_photo_name));
+            $upload_photo = Image::make($gallery_photo)->crop(800, 609)->save(public_path('storage/gallery/'.$gallery_photo_name));
 
 
             if($upload_photo){
