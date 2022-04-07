@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- breadcrumb_section - start
-                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
     <div class="breadcrumb_section">
         <div class="container">
             <ul class="breadcrumb_nav ul_li">
@@ -15,10 +15,10 @@
         </div>
     </div>
     <!-- breadcrumb_section - end
-                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
 
     <!-- product_details - start
-                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
     <section class="product_details section_space pb-0">
         <div class="container">
             <div class="row">
@@ -106,9 +106,9 @@
                                     <i class="fal fa-plus"></i>
                                 </button>
                             </div>
-                            <div class="total_price">Total: $620,99</div>
+                            <div class="total_price" data-total="{{ $product->sale_price }}">Total:
+                                ${{ $product->sale_price }}</div>
                         </div>
-
                         <ul class="default_btns_group ul_li">
                             <li><a class="btn btn_primary addtocart_btn" href="#!">Add To Cart</a></li>
                         </ul>
@@ -242,10 +242,10 @@
         </div>
     </section>
     <!-- product_details - end
-                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
 
     <!-- related_products_section - start
-                                                                                                                                                                                                                                                                                                                                                 ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ================================================== -->
     <section class="related_products_section section_space">
         <div class="container">
             <div class="row">
@@ -264,7 +264,7 @@
                                             <div class="product-pic">
                                                 <img src="{{ asset('storage/products/' . $cat_product->photo) }}"
                                                     alt="{{ $cat_product->title }}">
-                                                <div class="actions">
+                                                {{-- <div class="actions">
                                                     <ul>
                                                         <li>
                                                             <a href="#"></a>
@@ -279,7 +279,7 @@
                                                             </a>
                                                         </li>
                                                     </ul>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class="details">
                                                 <h4><a
@@ -322,4 +322,36 @@
         </div>
     </section>
     <!-- related_products_section - end ================================================== -->
+@endsection
+@section('footer.js')
+
+
+    <script>
+        $(function() {
+            var num = 1;
+
+            $totalPrice = $('.total_price')[1].dataset.total;
+
+
+            $('.input_number_decrement').click(function() {
+
+
+                if (num > 1) {
+                    num--
+                    //$('.input_number').val(num);
+                    $('.total_price').text("Total: $" + ($totalPrice * num));
+                }
+                $('.input_number').val(num);
+            });
+
+
+
+            $('.input_number_increment').click(function() {
+                num++
+                $('.input_number').val(num);
+                $('.total_price').text("Total: $" + ($totalPrice * num));
+            });
+
+        });
+    </script>
 @endsection
