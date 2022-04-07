@@ -4,11 +4,11 @@
 
 @section('content')
     <!-- main body - start
-                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                    ================================================== -->
     <main>
 
         <!-- sidebar cart - start
-                                                                                                                                                                                                            ================================================== -->
+                                                                                                                                                                                                                        ================================================== -->
         {{-- <div class="sidebar-menu-wrapper">
             <div class="cart_sidebar">
                 <button type="button" class="close_btn"><i class="fal fa-times"></i></button>
@@ -70,14 +70,10 @@
             </div>
             <div class="cart_overlay"></div>
         </div> --}}
-        <!-- sidebar cart - end
-                                                                                                                                                                                                            ================================================== -->
-
-
-        ================================================== -->
+        <!-- sidebar cart - end ================================================== -->
 
         <!-- breadcrumb_section - start
-                                                                                                                                                                                                            ================================================== -->
+                                                                                                                                                                                                                        ================================================== -->
         <div class="breadcrumb_section">
             <div class="container">
                 <ul class="breadcrumb_nav ul_li">
@@ -86,11 +82,10 @@
                 </ul>
             </div>
         </div>
-        <!-- breadcrumb_section - end
-                                                                                                                                                                                                            ================================================== -->
+        <!-- breadcrumb_section - end ================================================== -->
 
         <!-- product_section - start
-                                                                                                                                                                                                            ================================================== -->
+                                                                                                                                                                                                                        ================================================== -->
         <section class="product_section section_space">
             <h2 class="hidden">Product sidebar</h2>
             <div class="container">
@@ -227,8 +222,7 @@
                                 <div class="shop-product-area shop-product-area-col">
                                     <div class="product-area shop-grid-product-area clearfix">
                                         @forelse ($products as $product)
-                                            <!-- product quick view modal - start
-                                                                                                                                                                                                            ================================================== -->
+                                            <!-- product quick view modal - start ================================================== -->
                                             <div class="modal fade" id="product_modal_{{ $product->id }}"
                                                 tabindex="-1">
                                                 <div class="modal-dialog modal-dialog-centered">
@@ -510,6 +504,5 @@
                 </div>
             </div>
         </section>
-        <!-- product_section - end
-                                                                                                                                                                                                            ================================================== -->
+        <!-- product_section - end ================================================== -->
     @endsection

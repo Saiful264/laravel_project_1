@@ -25,4 +25,7 @@ class ShopController extends Controller
         return view('frontend.shopsingle', compact('product'));
     }
 
+    public function cart(Request $request){
+        return $request;
+    }
 }

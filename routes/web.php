@@ -30,6 +30,8 @@ Route::name('frontend.')->group(function(){
     Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
     Route::get('/shop/{slug}', [ShopController::class, 'show'])->name('shop.single');
 
+    Route::post('/shop', [ShopController::class, 'cart'])->name('shop.cart');
+
 
     Route::get('/user/register', [FrontendUserRegisterController::class, 'register'])->name('user.register');
     Route::post('/user/register', [FrontendUserRegisterController::class, 'store'])->name('user.register');
@@ -41,7 +43,7 @@ Auth::routes();
 Route::name('backend.')->group(function(){
 
 
-Route::group(['middleware' => ['role_or_permission:Super Admin']],function () {
+//Route::group(['middleware' => ['role_or_permission:Super Admin']],function () {
     Route::get('/dashboard', [BackendContriller::class, 'index'])->name('home');
     // baner routes
     Route::resource('/banner', BannerController::class)->except(['show']);
@@ -59,7 +61,7 @@ Route::group(['middleware' => ['role_or_permission:Super Admin']],function () {
     Route::resource('/product', ProductController::class);
    });
 
-});
+//});
 
 Route::get('/test', [HomeController::class, 'testroute']);
 

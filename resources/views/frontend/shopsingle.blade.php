@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- breadcrumb_section - start
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
     <div class="breadcrumb_section">
         <div class="container">
             <ul class="breadcrumb_nav ul_li">
@@ -15,10 +15,10 @@
         </div>
     </div>
     <!-- breadcrumb_section - end
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
 
     <!-- product_details - start
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
     <section class="product_details section_space pb-0">
         <div class="container">
             <div class="row">
@@ -66,12 +66,16 @@
                         <hr>
 
                         <div class="item_attribute">
-                            <form action="#">
+                            <form action="{{ route('frontend.shop.cart') }}" method="POST">
+                                @csrf
+                                <input type="hidden" value="{{ $product->id }}" name="id">
+                                <input type="hidden" value="{{ $product->sale_price }}" name="sale_price">
+                                <input type="hidden" value="{{ $product->price }}" name="price">
                                 <div class="row">
                                     <div class="col col-md-6">
                                         <div class="select_option clearfix">
                                             <h4 class="input_title">Size *</h4>
-                                            <select>
+                                            <select name="size">
                                                 <option selected disabled>Choose A Option</option>
                                                 @foreach ($product->sizes as $size)
                                                     <option value="{{ $size->id }}">{{ $size->name }}</option>
@@ -83,7 +87,7 @@
                                     <div class="col col-md-6">
                                         <div class="select_option clearfix">
                                             <h4 class="input_title">Color *</h4>
-                                            <select>
+                                            <select name="color">
                                                 <option selected disabled>Choose A Option</option>
                                                 @foreach ($product->colors as $color)
                                                     <option value="{{ $color->id }}">{{ $color->name }}</option>
@@ -101,16 +105,18 @@
                                 <button type="button" class="input_number_decrement">
                                     <i class="fal fa-minus"></i>
                                 </button>
-                                <input class="input_number" type="text" value="1">
+                                <input class="input_number" name="quantity" type="text" value="1">
                                 <button type="button" class="input_number_increment">
                                     <i class="fal fa-plus"></i>
                                 </button>
                             </div>
                             <div class="total_price" data-total="{{ $product->sale_price }}">Total:
                                 ${{ $product->sale_price }}</div>
+                            <input type="hidden" name="total" class="total_hide" value="{{ $product->sale_price }}">
                         </div>
                         <ul class="default_btns_group ul_li">
-                            <li><a class="btn btn_primary addtocart_btn" href="#!">Add To Cart</a></li>
+                            <li><button type="submit" class="btn btn_primary addtocart_btn">Add To Cart</button>
+                            </li>
                         </ul>
                     </div>
                     </form>
@@ -242,10 +248,10 @@
         </div>
     </section>
     <!-- product_details - end
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
 
     <!-- related_products_section - start
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ================================================== -->
     <section class="related_products_section section_space">
         <div class="container">
             <div class="row">
@@ -340,6 +346,7 @@
                     num--
                     //$('.input_number').val(num);
                     $('.total_price').text("Total: $" + ($totalPrice * num));
+                    $('.total_hide').val($totalPrice * num);
                 }
                 $('.input_number').val(num);
             });
@@ -350,6 +357,7 @@
                 num++
                 $('.input_number').val(num);
                 $('.total_price').text("Total: $" + ($totalPrice * num));
+                $('.total_hide').val($totalPrice * num);
             });
 
         });
