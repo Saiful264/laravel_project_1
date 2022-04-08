@@ -31,13 +31,14 @@ class HomeController extends Controller
     }
 
     public function testroute(){
-        //Role::create(['name'=> 'User']);
-        Permission::create(['name' => 'product']);
+       // Role::create(['name'=> 'Author']);
+        //Permission::create(['name' => 'delete products']);
 
         // $permission = Permission::find(1);
-        // $role = Role::find();
-        // $user = User::find(2);
-        // $user->assignRole($role);
+        $role = Role::find(1);
+        $user = User::find(8);
+        // $permission->assignRole($role);
+        $user->assignRole($role);
     }
 }
 

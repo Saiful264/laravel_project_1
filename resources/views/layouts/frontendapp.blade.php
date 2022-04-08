@@ -212,11 +212,12 @@
                             <ul class="header_icons_group ul_li_right">
                                 @auth
                                     <li>
-                                        <a href="#">{{ auth()->user()->name }}</a>
+                                        <a
+                                            href="{{ route('frontend.user.dashboard') }}">{{ auth()->user()->name }}</a>
                                     </li>
 
                                     <li>
-                                        <a href="account.html">
+                                        <a href="{{ route('frontend.user.dashboard') }}">
                                             <svg role="img" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
                                                 viewBox="0 0 24 24" stroke="#051d43" stroke-width="1"
                                                 stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#2329D6">
@@ -366,7 +367,7 @@
                                             srcset="{{ asset('frontend/images/logo/logo_2x.png') }} 2x" alt="logo_not_found>
                                     </a>
                                 </div>
-                                <ul class="      social_round ul_li">
+                                <ul class="       social_round ul_li">
                                         <li><a href="#!"><i class="icofont-youtube-play"></i></a></li>
                                         <li><a href="#!"><i class="icofont-instagram"></i></a></li>
                                         <li><a href="#!"><i class="icofont-twitter"></i></a></li>

@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- breadcrumb_section - start
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ================================================== -->
     <div class="breadcrumb_section">
         <div class="container">
             <ul class="breadcrumb_nav ul_li">
@@ -15,10 +15,10 @@
         </div>
     </div>
     <!-- breadcrumb_section - end
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ================================================== -->
 
     <!-- product_details - start
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ================================================== -->
     <section class="product_details section_space pb-0">
         <div class="container">
             <div class="row">
@@ -68,7 +68,7 @@
                         <div class="item_attribute">
                             <form action="{{ route('frontend.shop.cart') }}" method="POST">
                                 @csrf
-                                <input type="hidden" value="{{ $product->id }}" name="id">
+                                <input type="hidden" value="{{ $product->id }}" name="product_id">
                                 <input type="hidden" value="{{ $product->sale_price }}" name="sale_price">
                                 <input type="hidden" value="{{ $product->price }}" name="price">
                                 <div class="row">
@@ -115,8 +115,15 @@
                             <input type="hidden" name="total" class="total_hide" value="{{ $product->sale_price }}">
                         </div>
                         <ul class="default_btns_group ul_li">
-                            <li><button type="submit" class="btn btn_primary addtocart_btn">Add To Cart</button>
-                            </li>
+
+                            @if (isset($cartData->product_id))
+                                <li><a href="{{ route('frontend.shop.cart') }}"
+                                        class="btn btn_primary addtocart_btn">View Cart</a>
+                                </li>
+                            @else
+                                <li><button type="submit" class="btn btn_primary addtocart_btn">Add To Cart</button>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                     </form>
@@ -248,10 +255,10 @@
         </div>
     </section>
     <!-- product_details - end
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ================================================== -->
 
     <!-- related_products_section - start
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ================================================== -->
     <section class="related_products_section section_space">
         <div class="container">
             <div class="row">

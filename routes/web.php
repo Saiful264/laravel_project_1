@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\BackendContriller;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ColorController;
+use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Frontend\FrontendControll;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Frontend\ShopController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use Spatie\Permission\Contracts\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +32,9 @@ Route::name('frontend.')->group(function(){
     Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
     Route::get('/shop/{slug}', [ShopController::class, 'show'])->name('shop.single');
 
-    Route::post('/shop', [ShopController::class, 'cart'])->name('shop.cart');
+    Route::get('/cart', [ShopController::class, 'cartView'])->name('shop.Viewcart')->middleware('auth');
+    Route::post('/cart', [ShopController::class, 'cart'])->name('shop.cart')->middleware('auth');
+
 
 
     Route::get('/user/register', [FrontendUserRegisterController::class, 'register'])->name('user.register');
@@ -43,7 +47,7 @@ Auth::routes();
 Route::name('backend.')->group(function(){
 
 
-//Route::group(['middleware' => ['role_or_permission:Super Admin']],function () {
+Route::group(['middleware' => ['role_or_permission:Super Admin']],function () {
     Route::get('/dashboard', [BackendContriller::class, 'index'])->name('home');
     // baner routes
     Route::resource('/banner', BannerController::class)->except(['show']);
@@ -59,9 +63,13 @@ Route::name('backend.')->group(function(){
 
 
     Route::resource('/product', ProductController::class);
+
+    //coupone
+    Route::get('coupon', [CouponController::class, 'index'])->name("coupon");
+    Route::post('coupon', [CouponController::class, 'store'])->name("coupon.store");
    });
 
-//});
+});
 
 Route::get('/test', [HomeController::class, 'testroute']);
 

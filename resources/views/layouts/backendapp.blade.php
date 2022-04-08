@@ -86,6 +86,9 @@
                                         </ul>
                                     </a>
                                 </li>
+                                <li><a href="{{ route('backend.coupon') }}"><i class="fa fa-edit"></i> Coupon
+                                    </a></li>
+
                                 <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                                 </li>
                             </ul>
