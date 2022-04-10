@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ApplyCoupon;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Coupon;
+use Carbon\Carbon;
+use Psy\TabCompletion\Matcher\FunctionsMatcher;
 
 class ShopController extends Controller
 {
@@ -21,18 +25,23 @@ class ShopController extends Controller
 
 
     public function show($slug){
+        $cartData = null;
         $product = Product::with('colors','sizes','categories')->where('slug', $slug)->first();
 
-        $category_product = Category::with('products')->get();
-         $cartData = Cart::where('user_id', auth()->user()->id)->where( 'product_id',  $product->id)->first();
+       // $category_product = Category::with('products')->get();
+       if(isset( auth()->user()->id)){
+        $cartData = Cart::where('user_id', auth()->user()->id)->where( 'product_id',  $product->id)->first();
+       }
+
         return view('frontend.shopsingle', compact('product','cartData'));
     }
 
     function cartView(){
         $cartData = Cart::where('user_id', auth()->user()->id)->with('product')->get();
         //  $cartsum = Cart::where('user_id', auth()->user()->id)->sum('total'); to sum the all product value
+        $apply_coupon = ApplyCoupon::with('coupon')->where('user_id', auth()->user()->id)->first();
 
-        return view('frontend.cart', compact('cartData'));
+        return view('frontend.cart', compact('cartData', 'apply_coupon'));
     }
 
      /**
@@ -64,6 +73,30 @@ class ShopController extends Controller
        $cart->total = $request->total;
        $cart->save();
        return redirect(route('frontend.shop.Viewcart'))->with('success', "Product Add to Cart Successfull");
+    }
+
+    function applyCoupon(Request $request){
+
+        $this->validate($request, [
+            'coupon' => "required"
+        ]);
+
+        $coupon_id = Coupon::where('name', $request->coupon)->where('expairy_date', '>', Carbon::today()->toDateString())->first();
+
+
+
+        if($coupon_id){
+
+            $data = new ApplyCoupon();
+            $data->user_id = auth()->user()->id;
+            $data->coupon_id = $coupon_id->id;
+            $data->use_date = Carbon::now();
+            $data->save();
+            return back()->with('massage', "Coupon Apply Susscessful!");
+        }else{
+            return back()->with('massage', "Coupon Expairy!");
+        }
+
     }
 }
 

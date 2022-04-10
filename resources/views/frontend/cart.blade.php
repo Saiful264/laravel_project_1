@@ -3,7 +3,7 @@
 
 @section('content')
     <!-- breadcrumb_section - start
-                                                                            ================================================== -->
+                                                                                                                                                                                                        ================================================== -->
     <div class="breadcrumb_section">
         <div class="container">
             <ul class="breadcrumb_nav ul_li">
@@ -13,10 +13,10 @@
         </div>
     </div>
     <!-- breadcrumb_section - end
-                                                                            ================================================== -->
+                                                                                                                                                                                                        ================================================== -->
 
     <!-- cart_section - start
-                                                                            ================================================== -->
+                                                                                                                                                                                                        ================================================== -->
     <section class="cart_section section_space">
         <div class="container">
 
@@ -72,15 +72,21 @@
             <div class="cart_btns_wrap">
                 <div class="row">
                     <div class="col col-lg-6">
-                        <form action="#">
+                        <form action="{{ route('frontend.coupon.apply') }}" method="POST">
+                            @csrf
                             <div class="coupon_form form_item mb-0">
-                                <input type="text" name="coupon" placeholder="Coupon Code...">
+                                <input type="text" name="coupon" value="{{ $apply_coupon->coupon->name ?? '' }}"
+                                    placeholder="Coupon Code...">
                                 <button type="submit" class="btn btn_dark">Apply Coupon</button>
                                 <div class="info_icon">
                                     <i class="fas fa-info-circle" data-bs-toggle="tooltip" data-bs-placement="top"
                                         title="Your Info Here"></i>
                                 </div>
                             </div>
+                            @if (session('massage'))
+                                <p class="text-danger">{{ session('massage') }}</p>
+                            @endif
+
                         </form>
                     </div>
 
@@ -124,9 +130,21 @@
                                 <span>Delivery Charge</span>
                                 <span>$5</span>
                             </li>
+                            @if (isset($apply_coupon->coupon))
+                                <li>
+                                    <span>Discound : ({{ $apply_coupon->coupon->name }})</span>
+                                    <span> - ${{ $apply_coupon->coupon->price ?? '' }}</span>
+                                </li>
+                            @endif
+
                             <li>
                                 <span>Order Total</span>
-                                <span class="total_price">$57.50</span>
+                                <span class="total_price">$ @if (isset($apply_coupon->coupon->price))
+                                        {{ $cartData->sum('total') - $apply_coupon->coupon->price }}
+                                    @else
+                                        {{ $cartData->sum('total') }}
+                                    @endif
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -135,5 +153,5 @@
         </div>
     </section>
     <!-- cart_section - end
-                                                                            ================================================== -->
+                                                                                                                                                                                                        ================================================== -->
 @endsection

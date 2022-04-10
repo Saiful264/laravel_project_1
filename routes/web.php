@@ -34,7 +34,7 @@ Route::name('frontend.')->group(function(){
 
     Route::get('/cart', [ShopController::class, 'cartView'])->name('shop.Viewcart')->middleware('auth');
     Route::post('/cart', [ShopController::class, 'cart'])->name('shop.cart')->middleware('auth');
-
+    Route::post('/apply/coupon', [ShopController::class, 'applyCoupon'])->name("coupon.apply");
 
 
     Route::get('/user/register', [FrontendUserRegisterController::class, 'register'])->name('user.register');
@@ -65,9 +65,10 @@ Route::group(['middleware' => ['role_or_permission:Super Admin']],function () {
     Route::resource('/product', ProductController::class);
 
     //coupone
-    Route::get('coupon', [CouponController::class, 'index'])->name("coupon");
-    Route::post('coupon', [CouponController::class, 'store'])->name("coupon.store");
-   });
+    Route::get('/coupon', [CouponController::class, 'index'])->name("coupon");
+    Route::post('/coupon', [CouponController::class, 'store'])->name("coupon.store");
+
+});
 
 });
 

@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(){
         $coupons = Coupon::all();
         return view('backend.coupon.index', compact('coupons'));
