@@ -4,45 +4,27 @@
 
 @section('content')
     <!-- main body - start
-                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                        ================================================== -->
     <main>
 
         <!-- sidebar cart - start
-                                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                            ================================================== -->
         {{-- <div class="sidebar-menu-wrapper">
             <div class="cart_sidebar">
                 <button type="button" class="close_btn"><i class="fal fa-times"></i></button>
                 <ul class="cart_items_list ul_li_block mb_30 clearfix">
-                    <li>
-                        <div class="item_image">
-                            <img src="assets/images/cart/cart_img_1.jpg" alt="image_not_found">
-                        </div>
-                        <div class="item_content">
-                            <h4 class="item_title">Yellow Blouse</h4>
-                            <span class="item_price">$30.00</span>
-                        </div>
-                        <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
-                    </li>
-                    <li>
-                        <div class="item_image">
-                            <img src="assets/images/cart/cart_img_2.jpg" alt="image_not_found">
-                        </div>
-                        <div class="item_content">
-                            <h4 class="item_title">Yellow Blouse</h4>
-                            <span class="item_price">$30.00</span>
-                        </div>
-                        <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
-                    </li>
-                    <li>
-                        <div class="item_image">
-                            <img src="assets/images/cart/cart_img_3.jpg" alt="image_not_found">
-                        </div>
-                        <div class="item_content">
-                            <h4 class="item_title">Yellow Blouse</h4>
-                            <span class="item_price">$30.00</span>
-                        </div>
-                        <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
-                    </li>
+                    @foreach ($products as $product)
+                        <li>
+                            <div class="item_image">
+                                <img src="{{ asset('storage/products/' . $product->photo) }}">
+                            </div>
+                            <div class="item_content">
+                                <h4 class="item_title">{{ $product->title }}</h4>
+                                <span class="item_price">${{ $product->sale_price }}</span>
+                            </div>
+                            <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
+                        </li>
+                    @endforeach
                 </ul>
 
                 <ul class="total_price ul_li_block mb_30 clearfix">
@@ -64,7 +46,7 @@
                     </li>
                 </ul>
                 <ul class="btns_group ul_li_block clearfix">
-                    <li><a class="btn btn_primary" href="cart.html">View Cart</a></li>
+                    <li><a class="btn btn_primary" href="{{ route('frontend.shop.cart') }}">View Cart</a></li>
                     <li><a class="btn btn_secondary" href="checkout.html">Checkout</a></li>
                 </ul>
             </div>
@@ -73,7 +55,7 @@
         <!-- sidebar cart - end ================================================== -->
 
         <!-- breadcrumb_section - start
-                                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                            ================================================== -->
         <div class="breadcrumb_section">
             <div class="container">
                 <ul class="breadcrumb_nav ul_li">
@@ -85,7 +67,7 @@
         <!-- breadcrumb_section - end ================================================== -->
 
         <!-- product_section - start
-                                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                            ================================================== -->
         <section class="product_section section_space">
             <h2 class="hidden">Product sidebar</h2>
             <div class="container">
@@ -352,12 +334,12 @@
                                                         <ul>
                                                             <li>
                                                                 <a href="#">
-
+                                                                    <i class="fas fa-heart"></i>
                                                                 </a>
                                                             </li>
                                                             <li>
                                                                 <a href="#">
-
+                                                                    <i class="fas fa-random"></i>
                                                                 </a>
                                                             </li>
                                                             <li>
@@ -426,62 +408,61 @@
                             <div class="tab-pane fade" id="profile" role="tabpanel">
                                 <div class="product_layout2_wrap">
                                     <div class="product-area-row">
-                                        <div class="grid clearfix">
-                                            <div class="product-pic">
-                                                <img src="assets/images/shop/product-img-24.png" alt />
-                                                <span class="theme-badge-2">25% off</span>
-                                                <div class="actions">
-                                                    <ul>
-                                                        <li>
-                                                            <a href="#">
-
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">
-
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="quickview_btn" data-bs-toggle="modal"
-                                                                href="#quickview_popup" role="button" tabindex="0">
-                                                                <i class="fas fa-eye"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
+                                        @foreach ($products as $product)
+                                            <div class="grid clearfix">
+                                                <div class="product-pic">
+                                                    <img src="{{ asset('storage/products/' . $product->photo) }}"
+                                                        alt="{{ $product->title }}" />
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <i class="fas fa-heart"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <i class="fas fa-random"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="quickview_btn" data-bs-toggle="modal"
+                                                                    href="#product_modal_{{ $product->id }}"
+                                                                    role="button" tabindex="0">
+                                                                    <i class="fas fa-eye"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="details">
+                                                    <h4><a href="#">{{ $product->title }}</a></h4>
+                                                    <p><a href="#">{{ $product->short_description }}</a></p>
+                                                    {{-- <div class="rating">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star-half-alt"></i>
+                                                    </div> --}}
+                                                    <span class="price">
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                <bdi> <span
+                                                                        class="woocommerce-Price-currencySymbol">$</span>{{ $product->sale_price }}
+                                                                </bdi>
+                                                            </span>
+                                                        </ins>
+                                                    </span>
+                                                    <div class="add-cart-area">
+                                                        <a href="{{ route('frontend.shop.single', $product->slug) }}"
+                                                            class="add-to-cart">Add to cart</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="details">
-                                                <h4><a href="#">Imac 29"</a></h4>
-                                                <p><a href="#">Apple iMac 29″ Laptop with Touch ID for you </a></p>
-                                                <div class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                </div>
-                                                <span class="price">
-                                                    <ins>
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <bdi> <span
-                                                                    class="woocommerce-Price-currencySymbol">$</span>471.48
-                                                            </bdi>
-                                                        </span>
-                                                    </ins>
-                                                    <del aria-hidden="true">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <bdi> <span
-                                                                    class="woocommerce-Price-currencySymbol">$</span>904.21
-                                                            </bdi>
-                                                        </span>
-                                                    </del>
-                                                </span>
-                                                <div class="add-cart-area">
-                                                    <button class="add-to-cart">Add to cart</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endforeach
+
+
                                     </div>
                                 </div>
 

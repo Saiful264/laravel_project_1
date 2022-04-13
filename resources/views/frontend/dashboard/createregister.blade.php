@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- breadcrumb_section - start
-                                                                    ================================================== -->
+                                                                                    ================================================== -->
     <div class="breadcrumb_section">
         <div class="container">
             <ul class="breadcrumb_nav ul_li">
@@ -14,10 +14,10 @@
         </div>
     </div>
     <!-- breadcrumb_section - end
-                                                                    ================================================== -->
+                                                                                    ================================================== -->
 
     <!-- register_section - start
-                                                                    ================================================== -->
+                                                                                    ================================================== -->
     <section class="register_section section_space">
         <div class="container">
             <div class="row justify-content-center">
@@ -36,13 +36,17 @@
 
                     <div class="register_wrap tab-content">
                         <div class="tab-pane fade show active" id="signin_tab" role="tabpanel">
-                            <form action="#">
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
 
                                 <div class="form_item_wrap">
                                     <h3 class="input_title">Name*</h3>
                                     <div class="form_item">
                                         <label for="username_input"><i class="fas fa-user"></i></label>
-                                        <input id="username_input" type="text" name="username" placeholder="User Name">
+                                        <input id="email" type="email"
+                                            class="form-control @error('email') is-invalid @enderror" name="email"
+                                            value="{{ old('email') }}" required autocomplete="email" autofocus
+                                            placeholder="Enter your Email">
                                     </div>
                                 </div>
 
@@ -50,7 +54,10 @@
                                     <h3 class="input_title">Password*</h3>
                                     <div class="form_item">
                                         <label for="password_input"><i class="fas fa-lock"></i></label>
-                                        <input id="password_input" type="password" name="password" placeholder="Password">
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror"
+                                            placeholder="Enter Your Password" name="password" required
+                                            autocomplete="current-password">
                                     </div>
                                     <div class="checkbox_item">
                                         <input id="remember_checkbox" type="checkbox">
@@ -132,5 +139,5 @@
         </div>
     </section>
     <!-- register_section - end
-                                                                    ================================================== -->
+                                                                                    ================================================== -->
 @endsection

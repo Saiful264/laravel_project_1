@@ -34,6 +34,7 @@ Route::name('frontend.')->group(function(){
 
     Route::get('/cart', [ShopController::class, 'cartView'])->name('shop.Viewcart')->middleware('auth');
     Route::post('/cart', [ShopController::class, 'cart'])->name('shop.cart')->middleware('auth');
+    //Route::post('/cart/delete', [ShopController::class, 'delete'])->name('shop.delete');
     Route::post('/apply/coupon', [ShopController::class, 'applyCoupon'])->name("coupon.apply");
 
 

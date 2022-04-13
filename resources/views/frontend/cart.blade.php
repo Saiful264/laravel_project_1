@@ -3,7 +3,7 @@
 
 @section('content')
     <!-- breadcrumb_section - start
-                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                ================================================== -->
     <div class="breadcrumb_section">
         <div class="container">
             <ul class="breadcrumb_nav ul_li">
@@ -13,10 +13,10 @@
         </div>
     </div>
     <!-- breadcrumb_section - end
-                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                ================================================== -->
 
     <!-- cart_section - start
-                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                ================================================== -->
     <section class="cart_section section_space">
         <div class="container">
 
@@ -59,8 +59,11 @@
                                     </form>
                                 </td>
                                 <td class="text-center"><span class="price_text">${{ $data->total }}</span></td>
-                                <td class="text-center"><button type="button" class="remove_btn"><i
-                                            class="fal fa-trash-alt"></i></button></td>
+
+                                <td class="text-center">
+                                    <button value="{{ route('frontend.shop.delete', $data->id) }}" type="button"
+                                        class="remove_btn"><i class="fal fa-trash-alt"></i></button>
+                                </td>
                             </tr>
                         @empty
                             <p>Empty Need to Work!</p>
@@ -153,5 +156,5 @@
         </div>
     </section>
     <!-- cart_section - end
-                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                ================================================== -->
 @endsection

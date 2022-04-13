@@ -18,7 +18,7 @@ class ShopController extends Controller
 
     public function shop(){
         $products = Product::with('sizes','colors','categories')->
-        select('id','title','slug','price','sale_price','quantity','photo','status')->
+        select('id','title','slug','price','sale_price','short_description','quantity','photo','status')->
         orderBy('created_at', "desc")->paginate(5);
         return view('frontend.shop', compact('products'));
     }
@@ -98,6 +98,11 @@ class ShopController extends Controller
         }
 
     }
+
+    public function delete($id){
+        return $id;
+    }
+
 }
 
 

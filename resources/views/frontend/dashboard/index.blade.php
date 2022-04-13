@@ -3,7 +3,7 @@
 
 @section('content')
     <!-- breadcrumb_section - start
-                                            ================================================== -->
+                                                                    ================================================== -->
     <div class="breadcrumb_section">
         <div class="container">
             <ul class="breadcrumb_nav ul_li">
@@ -13,10 +13,10 @@
         </div>
     </div>
     <!-- breadcrumb_section - end
-                                            ================================================== -->
+                                                                    ================================================== -->
 
     <!-- account_section - start
-                                            ================================================== -->
+                                                                    ================================================== -->
     <section class="account_section section_space">
         <div class="container">
             <div class="row">
@@ -44,7 +44,9 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-9">
+
                 <div class="tab-content bg-light p-3" id="v-pills-tabContent">
                     <div class="tab-pane fade show active text-center" id="v-pills-home" role="tabpanel"
                         aria-labelledby="v-pills-home-tab">
@@ -102,30 +104,7 @@
         </div>
         </div>
     </section>
-    <!-- account_section - end
-                                    ================================================== -->
-
-    <!-- newsletter_section - start
-                                            ================================================== -->
-    <section class="newsletter_section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col col-lg-6">
-                    <h2 class="newsletter_title text-white">Sign Up for Newsletter </h2>
-                    <p>Get E-mail updates about our latest products and special offers.</p>
-                </div>
-                <div class="col col-lg-6">
-                    <form action="#!">
-                        <div class="newsletter_form">
-                            <input type="email" name="email" placeholder="Enter your email address">
-                            <button type="submit" class="btn btn_secondary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- newsletter_section - end ================================================== -->
+    <!-- account_section - end ================================================== -->
 
 
 @endsection
