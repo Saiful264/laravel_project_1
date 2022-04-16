@@ -4,11 +4,11 @@
 
 @section('content')
     <!-- main body - start
-                                                                                                                                                                                                                                                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                ================================================== -->
     <main>
 
         <!-- sidebar cart - start
-                                                                                                                                                                                                                                                                                                                                                                                                                                            ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
         {{-- <div class="sidebar-menu-wrapper">
             <div class="cart_sidebar">
                 <button type="button" class="close_btn"><i class="fal fa-times"></i></button>
@@ -55,7 +55,7 @@
         <!-- sidebar cart - end ================================================== -->
 
         <!-- breadcrumb_section - start
-                                                                                                                                                                                                                                                                                                                                                                                                                                            ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
         <div class="breadcrumb_section">
             <div class="container">
                 <ul class="breadcrumb_nav ul_li">
@@ -67,7 +67,7 @@
         <!-- breadcrumb_section - end ================================================== -->
 
         <!-- product_section - start
-                                                                                                                                                                                                                                                                                                                                                                                                                                            ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================================== -->
         <section class="product_section section_space">
             <h2 class="hidden">Product sidebar</h2>
             <div class="container">
@@ -313,8 +313,17 @@
                                                                                 </div>
 
                                                                                 <ul class="default_btns_group ul_li">
-                                                                                    <li><a class="addtocart_btn"
-                                                                                            href="">Add To Cart</a></li>
+                                                                                    {{-- @if (isset($cartDatas->product_id))
+                                                                                        <li><a href="{{ route('frontend.shop.cart') }}"
+                                                                                                class="btn btn_primary addtocart_btn">View
+                                                                                                Cart</a>
+                                                                                        </li>
+                                                                                    @else --}}
+                                                                                    <li><button type="submit"
+                                                                                            class="btn btn_primary addtocart_btn">Add
+                                                                                            To Cart</button>
+                                                                                    </li>
+                                                                                    {{-- @endif --}}
                                                                                 </ul>
                                                                             </div>
                                                                         </div>

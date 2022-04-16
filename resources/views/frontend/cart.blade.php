@@ -3,7 +3,7 @@
 
 @section('content')
     <!-- breadcrumb_section - start
-                                                                                                                                                                                                                                ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                        ================================================== -->
     <div class="breadcrumb_section">
         <div class="container">
             <ul class="breadcrumb_nav ul_li">
@@ -13,10 +13,10 @@
         </div>
     </div>
     <!-- breadcrumb_section - end
-                                                                                                                                                                                                                                ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                        ================================================== -->
 
     <!-- cart_section - start
-                                                                                                                                                                                                                                ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                        ================================================== -->
     <section class="cart_section section_space">
         <div class="container">
 
@@ -32,37 +32,44 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($cartData as $data)
+                        @forelse ($cartDatas as $cartData)
                             <tr>
                                 <td>
                                     <div class="cart_product">
-                                        <img src="{{ asset('storage/products/' . $data->product->photo) }}"
-                                            alt="{{ $data->product->title }}">
+                                        <img src="{{ asset('storage/products/' . $cartData->product->photo) }}"
+                                            alt="{{ $cartData->product->title }}">
                                         <h3><a
-                                                href="{{ route('frontend.shop.single', $data->product->slug) }}">{{ $data->product->title }}</a>
+                                                href="{{ route('frontend.shop.single', $cartData->product->slug) }}">{{ $cartData->product->title }}</a>
                                         </h3>
                                     </div>
                                 </td>
-                                <td class="text-center"><span class="price_text">${{ $data->sale_price }}</span>
+                                <td class="text-center"><span
+                                        class="price_text">${{ $cartData->sale_price }}</span>
                                 </td>
                                 <td class="text-center">
-                                    <form action="#">
-                                        <div class="quantity_input">
-                                            <button type="button" class="input_number_decrement">
-                                                <i class="fal fa-minus"></i>
-                                            </button>
-                                            <input class="input_number" type="text" value="{{ $data->quantity }}" />
-                                            <button type="button" class="input_number_increment">
-                                                <i class="fal fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </form>
+                                    {{-- <form action="#"> --}}
+                                    <div class="quantity_input">
+                                        <button type="button" class="input_number_decrement">
+                                            <i class="fal fa-minus"></i>
+                                        </button>
+                                        <input class="input_number" type="text" value="{{ $cartData->quantity }}" />
+                                        <button type="button" class="input_number_increment">
+                                            <i class="fal fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    {{-- </form> --}}
                                 </td>
-                                <td class="text-center"><span class="price_text">${{ $data->total }}</span></td>
+                                <td class="text-center"><span class="price_text">${{ $cartData->total }}</span>
+                                </td>
 
                                 <td class="text-center">
-                                    <button value="{{ route('frontend.shop.delete', $data->id) }}" type="button"
-                                        class="remove_btn"><i class="fal fa-trash-alt"></i></button>
+                                    <form action="{{ route('frontend.cart.delete', $cartData->id) }}" method="POST">
+                                        @csrf
+                                        @method("POST")
+                                        <button type="submit" class="remove_btn">
+                                            <i class="fal fa-trash-alt"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @empty
@@ -156,5 +163,5 @@
         </div>
     </section>
     <!-- cart_section - end
-                                                                                                                                                                                                                                ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                                        ================================================== -->
 @endsection

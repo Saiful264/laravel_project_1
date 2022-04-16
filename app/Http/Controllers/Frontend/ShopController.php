@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Coupon;
 use Carbon\Carbon;
+use Dflydev\DotAccessData\Data;
 use Psy\TabCompletion\Matcher\FunctionsMatcher;
 
 class ShopController extends Controller
@@ -25,23 +26,23 @@ class ShopController extends Controller
 
 
     public function show($slug){
-        $cartData = null;
+        $cartDatas = null;
         $product = Product::with('colors','sizes','categories')->where('slug', $slug)->first();
 
        // $category_product = Category::with('products')->get();
        if(isset( auth()->user()->id)){
-        $cartData = Cart::where('user_id', auth()->user()->id)->where( 'product_id',  $product->id)->first();
+        $cartDatas = Cart::where('user_id', auth()->user()->id)->where( 'product_id',  $product->id)->first();
        }
 
-        return view('frontend.shopsingle', compact('product','cartData'));
+        return view('frontend.shopsingle', compact('product','cartDatas'));
     }
 
     function cartView(){
-        $cartData = Cart::where('user_id', auth()->user()->id)->with('product')->get();
+        $cartDatas = Cart::where('user_id', auth()->user()->id)->with('product')->get();
         //  $cartsum = Cart::where('user_id', auth()->user()->id)->sum('total'); to sum the all product value
         $apply_coupon = ApplyCoupon::with('coupon')->where('user_id', auth()->user()->id)->first();
 
-        return view('frontend.cart', compact('cartData', 'apply_coupon'));
+        return view('frontend.cart', compact('cartDatas', 'apply_coupon'));
     }
 
      /**
@@ -100,7 +101,11 @@ class ShopController extends Controller
     }
 
     public function delete($id){
-        return $id;
+        $data = Cart::find($id);
+
+        $data->forceDelete();
+        return back();
+
     }
 
 }
